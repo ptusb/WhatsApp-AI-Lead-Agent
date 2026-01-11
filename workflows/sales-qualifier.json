@@ -1,0 +1,79 @@
+{
+    "name": "WhatsApp Sales Qualifier Agent",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "whatsapp-webhook",
+                "options": {}
+            },
+            "id": "1",
+            "name": "WhatsApp Trigger",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "model": "gpt-4o",
+                "systemMessage": "You are a professional sales qualifier for a premium tech agency. Your goal is to identify if the user needs mobile development, web development, or AI automation. Be helpful but efficient.",
+                "prompt": "=Analyze this message: {{ $json.body.message }}"
+            },
+            "id": "2",
+            "name": "Qualify Intent",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.intent }}",
+                            "value2": "qualified"
+                        }
+                    ]
+                }
+            },
+            "id": "3",
+            "name": "Is Qualified?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "WhatsApp Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Qualify Intent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Qualify Intent": {
+            "main": [
+                [
+                    {
+                        "node": "Is Qualified?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
