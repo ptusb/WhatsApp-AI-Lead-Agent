@@ -34,10 +34,38 @@ This is a **Conversational Sales Engine**.
 ## 🙋 Potential Interview/Boss Questions (Ready-to-Answer)
 
 **Q: "Can the AI hallucinate or give wrong info to customers?"**
+
 - **A:** *"We use 'System Prompting' and 'RAG' (Retrieval) to lock the AI's knowledge. It is strictly instructed only to use the business data we provide. If it doesn't know an answer, it automatically hands the chat over to a human."*
 
 **Q: "What if 100 people message at once?"**
+
 - **A:** *"The cloud architecture of n8n handles concurrency perfectly. It can scale to thousands of simultaneous conversations without slowing down, something no human team can do."*
+
+---
+
+## ⚙️ Implementation Guide (Step-by-Step)
+
+### **1. Integration Setup**
+
+- Sign up for a **Meta WhatsApp Business API** or **Twilio** account.
+- Get your **OpenAI API Key**.
+
+### **2. Workflow Implementation**
+
+1. Import `sales-qualifier.json` into n8n.
+2. Set the **Webhook URL** in your WhatsApp provider settings to point to your n8n webhook.
+3. Fill in your OpenAI and WhatsApp credentials in the node parameters.
+4. Activate the workflow.
+
+---
+
+## 🎬 Demonstration Guide (How to see it in Action)
+
+1. **Start Chat**: Open WhatsApp and send a message to your bot:
+    > *"Hey, I'm looking for someone to build a custom AI automation for my e-commerce store."*
+2. **Observation**: The bot will analyze your message and reply:
+    > *"That sounds great! We specialize in e-commerce automation. Can I ask what your monthly order volume is?"*
+3. **Qualification**: Answer the bot. If you qualify as a high-value lead, it will automatically send you a link to book a discovery call.
 
 ---
 
